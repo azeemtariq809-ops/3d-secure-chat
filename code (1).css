@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Login Screen Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    perspective: 1000px;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
+    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotateX(0deg); }
+    50% { transform: translateY(-10px) rotateX(2deg); }
+}
+
+.title {
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateZ(20px);
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 16px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    transform: translateZ(10px);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateZ(15px) scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.join-btn, .leave-btn, .send-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateZ(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.join-btn:hover, .leave-btn:hover, .send-btn:hover {
+    transform: translateZ(20px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.join-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: translateZ(5px);
+}
+
+.error-message, .loading-message {
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    transform: translateZ(5px);
+    transition: all 0.3s ease;
+}
+
+.error-message {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.loading-message {
+    background: rgba(116, 185, 255, 0.2);
+    color: #74b9ff;
+    border: 1px solid rgba(116, 185, 255, 0.3);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Chat Interface Styles */
+.chat-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.chat-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-header h2 {
+    color: white;
+    font-size: 1.5em;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: white;
+}
+
+.leave-btn {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.chat-3d-container {
+    flex: 1;
+    perspective: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+
+.messages-3d {
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    transform-style: preserve-3d;
+}
+
+.message-3d {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform-style: preserve-3d;
+    animation: messageSlide 0.5s ease-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-100px) translateZ(-50px) rotateY(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateZ(0) rotateY(0deg);
+    }
+}
+
+.message-3d:hover {
+    transform: translateZ(10px) scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.message-user {
+    color: #74b9ff;
+    font-weight: bold;
+}
+
+.message-time {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.message-content {
+    color: white;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.input-container {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+}
+
+#messageInput {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    backdrop-filter: blur(5px);
+}
+
+#messageInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#messageInput:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.send-btn {
+    width: auto;
+    padding: 15px 30px;
+    border-radius: 25px;
+}
+
+.users-list {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 150px;
+}
+
+.users-list h3 {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.user-item {
+    color: #74b9ff;
+    padding: 5px 0;
+    font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .user-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .users-list {
+        position: relative;
+        margin: 10px;
+        top: auto;
+        right: auto;
+    }
+    
+    .title {
+        font-size: 2em;
+    }
+    
+    .login-box {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-container {
+        flex-direction: column;
+    }
+    
+    .send-btn {
+        width: 100%;
+    }
+}
